@@ -1,6 +1,3 @@
-/* eslint jsx-a11y/anchor-is-valid: 0 */
-/* eslint jsx-a11y/img-redundant-alt: 0 */
-
 function Favorites() {
   return (
     <>
