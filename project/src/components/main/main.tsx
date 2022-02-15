@@ -1,3 +1,5 @@
+/* eslint jsx-a11y/anchor-is-valid: 0 */
+
 import PlaceCard from '../place-card/place-card';
 
 type MainProps = {

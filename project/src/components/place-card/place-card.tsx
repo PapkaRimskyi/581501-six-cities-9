@@ -1,3 +1,6 @@
+/* eslint jsx-a11y/anchor-is-valid: 0 */
+/* eslint jsx-a11y/img-redundant-alt: 0 */
+
 function PlaceCard(): JSX.Element {
   return (
     <article className="cities__place-card place-card">
