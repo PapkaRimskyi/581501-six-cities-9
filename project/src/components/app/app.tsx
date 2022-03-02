@@ -13,14 +13,16 @@ import PrivateRoute from '../private-route/private-route';
 import ROUTES_PATHS from './routes-paths';
 import PAGE_MODIFICATION from './page-modification';
 
+import OfferType from '../../types/offerType';
+
 type AppProps = {
-  arendaOfferData: number[],
+  arendaOfferData: OfferType[],
 };
 
 function App({ arendaOfferData }: AppProps): JSX.Element {
   const { pathname } = useLocation();
 
-  const authStatus = false;
+  const authStatus = true;
 
   const definePageContainerModificator = (path: string) => {
     switch(path) {
