@@ -6,6 +6,6 @@ import offersMocks from "../../mocks/offers";
 
 test('Renders app-component', () => {
   render(<Router><App arendaOfferData={offersMocks} /></Router>);
-  const textElement = screen.getByText(/5 places to stay in Amsterdam/i);
+  const textElement = screen.getByText(/4 places to stay in Amsterdam/i);
   expect(textElement).toBeInTheDocument();
 });
