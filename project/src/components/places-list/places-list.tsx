@@ -9,6 +9,7 @@ type PlacesListProps = {
 }
 
 function PlacesList({ arendaOfferData }: PlacesListProps) {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   function onMouseEnterHandler(id: number) {
