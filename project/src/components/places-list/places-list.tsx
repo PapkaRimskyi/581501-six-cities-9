@@ -10,7 +10,6 @@ type PlacesListProps = {
 
 function PlacesList({ arendaOfferData }: PlacesListProps) {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  console.log(hoveredCard);
 
   function onMouseEnterHandler(id: number) {
     setHoveredCard(id);
