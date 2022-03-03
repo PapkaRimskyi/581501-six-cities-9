@@ -19,29 +19,29 @@ type AppProps = {
   arendaOfferData: OfferType[],
 };
 
+const definePageContainerModificator = (path: string) => {
+  switch(path) {
+    case ROUTES_PATHS.MAIN:
+      return PAGE_MODIFICATION.MAIN;
+    case ROUTES_PATHS.LOGIN:
+      return PAGE_MODIFICATION.LOGIN;
+    default:
+      return '';
+  }
+};
+
 function App({ arendaOfferData }: AppProps): JSX.Element {
   const { pathname } = useLocation();
 
-  const authStatus = true;
-
-  const definePageContainerModificator = (path: string) => {
-    switch(path) {
-      case ROUTES_PATHS.MAIN:
-        return PAGE_MODIFICATION.MAIN;
-      case ROUTES_PATHS.LOGIN:
-        return PAGE_MODIFICATION.LOGIN;
-      default:
-        return '';
-    }
-  };
+  const isAuthorized = true;
 
   return (
     <div className={`page ${definePageContainerModificator(pathname)}`}>
-      <Header authStatus={authStatus} />
+      <Header isAuthorized={isAuthorized} />
       <Routes>
         <Route path={ROUTES_PATHS.MAIN} element={<Main arendaOfferData={arendaOfferData} />} />
         <Route path={ROUTES_PATHS.LOGIN} element={<Login />} />
-        <Route path={ROUTES_PATHS.FAVORITES} element={<PrivateRoute authStatus={authStatus}><Favorites /></PrivateRoute>} />
+        <Route path={ROUTES_PATHS.FAVORITES} element={<PrivateRoute isAuthorized={isAuthorized}><Favorites favoritesCards={arendaOfferData} /></PrivateRoute>} />
         <Route path={ROUTES_PATHS.ROOM} element={<Property />} />
         <Route path={ROUTES_PATHS.ANYTHING} element={<NotFound />} />
       </Routes>
