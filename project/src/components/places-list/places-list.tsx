@@ -4,12 +4,13 @@ import PlaceCard from './place-card/place-card';
 
 import OfferType from '../../types/offerType';
 
-type PlacesList = {
+type PlacesListProps = {
   arendaOfferData: OfferType[],
 }
 
-function PlacesList({ arendaOfferData }: PlacesList) {
+function PlacesList({ arendaOfferData }: PlacesListProps) {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  console.log(hoveredCard);
 
   function onMouseEnterHandler(id: number) {
     setHoveredCard(id);
@@ -21,14 +22,14 @@ function PlacesList({ arendaOfferData }: PlacesList) {
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {arendaOfferData.map((cardInfo) =>
+      {arendaOfferData.map((cardInfo) => (
         <PlaceCard
           key={cardInfo.id}
           cardInfo={cardInfo}
           onMouseEnterHandler={() => onMouseEnterHandler(cardInfo.id)}
           onMouseLeaveHandler={onMouseLeaveHandler}
         />
-      )}
+      ))}
     </div>
   );
 }

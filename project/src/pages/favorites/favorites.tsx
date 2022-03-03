@@ -1,7 +1,7 @@
 import Footer from '../../components/footer/footer';
 
 import OfferType from '../../types/offerType';
-import FavoritesCard from "../../components/favorites-card/favorites-card";
+import FavoritesCard from '../../components/favorites-card/favorites-card';
 
 type FavoritesProps = {
   favoritesCards: OfferType[],
@@ -24,7 +24,7 @@ function Favorites({ favoritesCards }: FavoritesProps) {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {favoritesCards.map((card) => <FavoritesCard cardInfo={card} />)}
+                  {favoritesCards.map((card) => <FavoritesCard key={card.id} cardInfo={card} />)}
                 </div>
               </li>
             </ul>

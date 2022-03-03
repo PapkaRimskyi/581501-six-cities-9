@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './components/app/app';
 
-import offersMocks from "./mocks/offers";
+import offersMocks from './mocks/offers';
 
 ReactDOM.render(
   <React.StrictMode>

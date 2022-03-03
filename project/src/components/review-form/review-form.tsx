@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react';
 function ReviewForm() {
   const [reviewStars, setReviewStars] = useState<string | null>(null);
   const [reviewText, setReviewText] = useState<string | number | readonly string[] | undefined>('');
+  console.log(reviewStars);
 
   function onChangeRatingHandler(e: ChangeEvent<HTMLInputElement>) {
     setReviewStars(e.target.value);
