@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import PlaceCard from './place-card/place-card';
 
@@ -6,18 +6,16 @@ import OfferType from '../../types/offerType';
 
 type PlacesListProps = {
   arendaOfferData: OfferType[],
+  setCurrentPoint: Dispatch<SetStateAction<number | null>>,
 }
 
-function PlacesList({ arendaOfferData }: PlacesListProps) {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-
+function PlacesList({ arendaOfferData, setCurrentPoint }: PlacesListProps) {
   function onMouseEnterHandler(id: number) {
-    setHoveredCard(id);
+    setCurrentPoint(id);
   }
 
   function onMouseLeaveHandler() {
-    setHoveredCard(null);
+    setCurrentPoint(null);
   }
 
   return (

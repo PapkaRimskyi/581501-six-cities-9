@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import CityList from '../../components/city-list/city-list';
 import Sorting from '../../components/sorting/sorting';
 import PlacesList from '../../components/places-list/places-list';
+import Map from '../../components/map/map';
 
 import OfferType from '../../types/offerType';
 
@@ -9,6 +12,8 @@ type MainProps = {
 };
 
 function Main({ arendaOfferData }: MainProps): JSX.Element {
+  const [currentPoint, setCurrentPoint] = useState<null | number>(null);
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -21,10 +26,10 @@ function Main({ arendaOfferData }: MainProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{arendaOfferData.length} places to stay in Amsterdam</b>
             <Sorting />
-            <PlacesList arendaOfferData={arendaOfferData} />
+            <PlacesList arendaOfferData={arendaOfferData} setCurrentPoint={setCurrentPoint} />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map citySettings={arendaOfferData[0].city.location} points={arendaOfferData} currentPoint={currentPoint} />
           </div>
         </div>
       </div>
