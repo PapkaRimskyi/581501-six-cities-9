@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import PlaceCard from './place-card/place-card';
 
@@ -12,12 +12,10 @@ function PlacesList({ arendaOfferData }: PlacesListProps) {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
+  const onMouseLeaveHandler = useCallback(() => setHoveredCard(null), []);
+
   function onMouseEnterHandler(id: number) {
     setHoveredCard(id);
-  }
-
-  function onMouseLeaveHandler() {
-    setHoveredCard(null);
   }
 
   return (
