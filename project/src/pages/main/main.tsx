@@ -1,9 +1,11 @@
 import CityList from '../../components/city-list/city-list';
 import Sorting from '../../components/sorting/sorting';
-import PlaceCard from '../../components/place-card/place-card';
+import PlacesList from '../../components/places-list/places-list';
+
+import OfferType from '../../types/offerType';
 
 type MainProps = {
-  arendaOfferData: number[],
+  arendaOfferData: OfferType[],
 };
 
 function Main({ arendaOfferData }: MainProps): JSX.Element {
@@ -19,9 +21,7 @@ function Main({ arendaOfferData }: MainProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{arendaOfferData.length} places to stay in Amsterdam</b>
             <Sorting />
-            <div className="cities__places-list places__list tabs__content">
-              {arendaOfferData.map((_, i) => <PlaceCard key={`card-${_}`} />)}
-            </div>
+            <PlacesList arendaOfferData={arendaOfferData} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>

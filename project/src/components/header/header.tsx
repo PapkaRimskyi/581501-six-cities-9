@@ -5,10 +5,10 @@ import HeaderNav from './header-nav/header-nav';
 import ROUTES_PATHS from '../app/routes-paths';
 
 type HeaderProps = {
-  authStatus: boolean,
+  isAuthorized: boolean,
 }
 
-function Header({ authStatus } : HeaderProps) {
+function Header({ isAuthorized } : HeaderProps) {
   const { pathname } = useLocation();
 
   return (
@@ -20,7 +20,7 @@ function Header({ authStatus } : HeaderProps) {
               <img className="header__logo" src="./img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          {pathname !== ROUTES_PATHS.LOGIN && authStatus ? <HeaderNav /> : null}
+          {pathname !== ROUTES_PATHS.LOGIN && isAuthorized ? <HeaderNav /> : null}
         </div>
       </div>
     </header>
