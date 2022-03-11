@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
-import RatingStars from "../rating-stars/rating-stars";
+
+import RatingStars from '../rating-stars/rating-stars';
 
 function ReviewForm() {
   /* eslint-disable @typescript-eslint/no-unused-vars */
