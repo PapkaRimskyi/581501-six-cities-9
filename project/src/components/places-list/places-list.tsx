@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, useCallback, SetStateAction } from 'react';
 
 import PlaceCard from './place-card/place-card';
 
@@ -10,12 +10,10 @@ type PlacesListProps = {
 }
 
 function PlacesList({ arendaOfferData, setCurrentPoint }: PlacesListProps) {
+  const onMouseLeaveHandler = useCallback(() => setCurrentPoint(null), []);
+
   function onMouseEnterHandler(id: number) {
     setCurrentPoint(id);
-  }
-
-  function onMouseLeaveHandler() {
-    setCurrentPoint(null);
   }
 
   return (

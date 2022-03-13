@@ -41,7 +41,14 @@ function App({ arendaOfferData }: AppProps): JSX.Element {
       <Routes>
         <Route path={ROUTES_PATHS.MAIN} element={<Main arendaOfferData={arendaOfferData} />} />
         <Route path={ROUTES_PATHS.LOGIN} element={<Login />} />
-        <Route path={ROUTES_PATHS.FAVORITES} element={<PrivateRoute isAuthorized={isAuthorized}><Favorites favoritesCards={arendaOfferData} /></PrivateRoute>} />
+        <Route
+          path={ROUTES_PATHS.FAVORITES}
+          element={(
+            <PrivateRoute isAuthorized={isAuthorized}>
+              <Favorites favoritesCards={arendaOfferData} />
+            </PrivateRoute>
+          )}
+        />
         <Route path={ROUTES_PATHS.ROOM} element={<Property />} />
         <Route path={ROUTES_PATHS.ANYTHING} element={<NotFound />} />
       </Routes>

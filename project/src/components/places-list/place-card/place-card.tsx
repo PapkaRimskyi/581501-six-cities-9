@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 
 import OfferType from '../../../types/offerType';
+
+import ROUTES_PATHS from '../../app/routes-paths';
 
 type PlaceCardProps = {
   cardInfo: OfferType,
@@ -17,7 +19,7 @@ function PlaceCard({ cardInfo, onMouseEnterHandler, onMouseLeaveHandler }: Place
         </div>
       )}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`offer/${cardInfo.id}`}>
+        <Link to={generatePath(ROUTES_PATHS.ROOM, { id: cardInfo.id.toString() })}>
           <img className="place-card__image" src={cardInfo.previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>
@@ -41,7 +43,7 @@ function PlaceCard({ cardInfo, onMouseEnterHandler, onMouseLeaveHandler }: Place
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${cardInfo.id}`}>{cardInfo.description}</Link>
+          <Link to={generatePath(ROUTES_PATHS.ROOM, { id: cardInfo.id.toString() })}>{cardInfo.description}</Link>
         </h2>
         <p className="place-card__type">{cardInfo.type}</p>
       </div>
