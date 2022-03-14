@@ -36,7 +36,7 @@ function Main({ arendaOfferData }: MainProps): JSX.Element {
           <div className="cities__right-section">
             <Map
               mainClass='cities__map'
-              citySettings={arendaOfferData[0].city.location}
+              citySettings={arendaOfferData?.[0]?.city?.location}
               points={arendaOfferData}
               currentPoint={currentPoint}
             />
