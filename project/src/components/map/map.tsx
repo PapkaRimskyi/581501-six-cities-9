@@ -8,13 +8,14 @@ import CoordType from '../../types/coordType';
 import OfferType from '../../types/offerType';
 
 type MapProps = {
+  mainClass: string,
   citySettings: CoordType,
   points: OfferType[],
   currentPoint: null | number,
 }
 
 
-function Map({ citySettings, points, currentPoint }: MapProps) {
+function Map({ mainClass, citySettings, points, currentPoint }: MapProps) {
   const mapRef = useRef<null | HTMLDivElement>(null);
 
   const map = useMap(mapRef, citySettings);
@@ -40,7 +41,7 @@ function Map({ citySettings, points, currentPoint }: MapProps) {
   });
 
   return (
-    <section className="cities__map map" ref={mapRef} />
+    <section className={`${mainClass} map`} ref={mapRef} />
   );
 }
 

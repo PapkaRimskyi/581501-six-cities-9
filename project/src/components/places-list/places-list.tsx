@@ -1,31 +1,35 @@
-import { Dispatch, useCallback, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
+import useHoverCard from '../../hooks/useHoverCard';
 
 import PlaceCard from './place-card/place-card';
+import NeighborsCard from '../neighbors-card/neighbors-card';
 
 import OfferType from '../../types/offerType';
 
 type PlacesListProps = {
+  mainClass: string,
+  pageFlag: 'main' | 'offer',
   arendaOfferData: OfferType[],
   setCurrentPoint: Dispatch<SetStateAction<number | null>>,
 }
 
-function PlacesList({ arendaOfferData, setCurrentPoint }: PlacesListProps) {
-  const onMouseLeaveHandler = useCallback(() => setCurrentPoint(null), []);
+function PlacesList({ mainClass, pageFlag, arendaOfferData, setCurrentPoint }: PlacesListProps) {
+  const { onMouseEnterHandler, onMouseLeaveHandler } = useHoverCard(setCurrentPoint);
 
-  function onMouseEnterHandler(id: number) {
-    setCurrentPoint(id);
+  function getCard(cardInfo: OfferType) {
+    switch(pageFlag) {
+      case 'main':
+        return <PlaceCard key={cardInfo.id} cardInfo={cardInfo} onMouseEnterHandler={() => onMouseEnterHandler(cardInfo.id)} onMouseLeaveHandler={onMouseLeaveHandler} />;
+      case 'offer':
+        return <NeighborsCard key={cardInfo.id} cardInfo={cardInfo} onMouseEnterHandler={() => onMouseEnterHandler(cardInfo.id)} onMouseLeaveHandler={onMouseLeaveHandler} />;
+      default:
+        return null;
+    }
   }
 
   return (
-    <div className="cities__places-list places__list tabs__content">
-      {arendaOfferData.map((cardInfo) => (
-        <PlaceCard
-          key={cardInfo.id}
-          cardInfo={cardInfo}
-          onMouseEnterHandler={() => onMouseEnterHandler(cardInfo.id)}
-          onMouseLeaveHandler={onMouseLeaveHandler}
-        />
-      ))}
+    <div className={mainClass}>
+      {arendaOfferData.map((cardInfo) => getCard(cardInfo))}
     </div>
   );
 }

@@ -49,7 +49,7 @@ function App({ arendaOfferData }: AppProps): JSX.Element {
             </PrivateRoute>
           )}
         />
-        <Route path={ROUTES_PATHS.ROOM} element={<Property />} />
+        <Route path={ROUTES_PATHS.ROOM} element={<Property arendaOfferData={arendaOfferData} />} />
         <Route path={ROUTES_PATHS.ANYTHING} element={<NotFound />} />
       </Routes>
     </div>

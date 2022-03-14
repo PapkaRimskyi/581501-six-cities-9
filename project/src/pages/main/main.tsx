@@ -26,10 +26,20 @@ function Main({ arendaOfferData }: MainProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{arendaOfferData.length} places to stay in Amsterdam</b>
             <Sorting />
-            <PlacesList arendaOfferData={arendaOfferData} setCurrentPoint={setCurrentPoint} />
+            <PlacesList
+              mainClass='cities__places-list places__list tabs__content'
+              pageFlag='main'
+              arendaOfferData={arendaOfferData}
+              setCurrentPoint={setCurrentPoint}
+            />
           </section>
           <div className="cities__right-section">
-            <Map citySettings={arendaOfferData[0].city.location} points={arendaOfferData} currentPoint={currentPoint} />
+            <Map
+              mainClass='cities__map'
+              citySettings={arendaOfferData[0].city.location}
+              points={arendaOfferData}
+              currentPoint={currentPoint}
+            />
           </div>
         </div>
       </div>
