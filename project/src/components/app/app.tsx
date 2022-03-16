@@ -13,10 +13,10 @@ import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
+import sortCitySpots from '../../util/sort-city-spots';
+
 import ROUTES_PATHS from './routes-paths';
 import PAGE_MODIFICATION from './page-modification';
-
-import offersMocks from '../../mocks/offers';
 
 const definePageContainerModificator = (path: string) => {
   switch(path) {
@@ -32,23 +32,29 @@ const definePageContainerModificator = (path: string) => {
 function App(): JSX.Element {
   const { pathname } = useLocation();
   const { city, citySpots } = useAppSelector((state) => state.cityData);
+  const sortType = useAppSelector((state) => state.sortType);
   const dispatch = useAppDispatch();
+
+  const isAuthorized = true;
 
   // запрос спотов после изменения города
 
   useEffect(() => {
-    dispatch(changeCitySpots(offersMocks));
+    dispatch(changeCitySpots(citySpots));
   }, [city]);
 
   //
 
-  const isAuthorized = true;
+  useEffect(() => {
+    const sortedCitySpots = sortCitySpots(sortType, citySpots);
+    dispatch(changeCitySpots(sortedCitySpots));
+  }, [sortType]);
 
   return (
     <div className={`page ${definePageContainerModificator(pathname)}`}>
       <Header isAuthorized={isAuthorized} />
       <Routes>
-        <Route path={ROUTES_PATHS.MAIN} element={<Main citySpots={citySpots} />} />
+        <Route path={ROUTES_PATHS.MAIN} element={<Main citySpots={citySpots} sortType={sortType} />} />
         <Route path={ROUTES_PATHS.LOGIN} element={<Login />} />
         <Route
           path={ROUTES_PATHS.FAVORITES}
