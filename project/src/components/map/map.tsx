@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react';
 
 import leaflet from 'leaflet';
 
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 
 import CoordType from '../../types/coordType';
 import OfferType from '../../types/offerType';

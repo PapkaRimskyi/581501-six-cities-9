@@ -10,10 +10,10 @@ import reviews from '../../mocks/reviews';
 import PlacesList from '../../components/places-list/places-list';
 
 type PropertyProps = {
-  arendaOfferData: OfferType[],
+  citySpots: OfferType[],
 };
 
-function Property({ arendaOfferData }: PropertyProps) {
+function Property({ citySpots }: PropertyProps) {
   const [currentPoint, setCurrentPoint] = useState<null | number>(null);
 
   return (
@@ -147,7 +147,7 @@ function Property({ arendaOfferData }: PropertyProps) {
             </div>
           </div>
           <div style={{ maxWidth: '1144px', margin: '0 auto' }}>
-            <Map mainClass='property__map' citySettings={arendaOfferData[0].city.location} points={arendaOfferData} currentPoint={currentPoint} />
+            <Map mainClass='property__map' citySettings={citySpots[0].city.location} points={citySpots} currentPoint={currentPoint} />
           </div>
         </section>
         <div className="container">
@@ -156,7 +156,7 @@ function Property({ arendaOfferData }: PropertyProps) {
             <PlacesList
               mainClass='near-places__list places__list'
               pageFlag='offer'
-              arendaOfferData={arendaOfferData}
+              citySpots={citySpots}
               setCurrentPoint={setCurrentPoint}
             />
           </section>
