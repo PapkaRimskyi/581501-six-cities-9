@@ -1,3 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const changeSortingType = createAction<string>('sorting/changeSortingType');
+import { SORTING_ACTIONS } from '../../../const/actions-names';
+
+export const changeSortingType = createAction<string>(SORTING_ACTIONS.CHANGE_SORTING_TYPE);
