@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import useHoverCard from '../../hooks/useHoverCard';
+import useHoverCard from '../../hooks/use-hover-card';
 
 import PlaceCard from './place-card/place-card';
 import NeighborsCard from '../neighbors-card/neighbors-card';
@@ -9,11 +9,11 @@ import OfferType from '../../types/offerType';
 type PlacesListProps = {
   mainClass: string,
   pageFlag: 'main' | 'offer',
-  arendaOfferData: OfferType[],
+  citySpots: OfferType[],
   setCurrentPoint: Dispatch<SetStateAction<number | null>>,
 }
 
-function PlacesList({ mainClass, pageFlag, arendaOfferData, setCurrentPoint }: PlacesListProps) {
+function PlacesList({ mainClass, pageFlag, citySpots, setCurrentPoint }: PlacesListProps) {
   const { onMouseEnterHandler, onMouseLeaveHandler } = useHoverCard(setCurrentPoint);
 
   function getCard(cardInfo: OfferType) {
@@ -29,7 +29,7 @@ function PlacesList({ mainClass, pageFlag, arendaOfferData, setCurrentPoint }: P
 
   return (
     <div className={mainClass}>
-      {arendaOfferData.map((cardInfo) => getCard(cardInfo))}
+      {citySpots.map((cardInfo) => getCard(cardInfo))}
     </div>
   );
 }

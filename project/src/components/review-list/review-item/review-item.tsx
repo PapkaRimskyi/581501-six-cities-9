@@ -1,3 +1,5 @@
+import buildDateReview from '../../../util/build-data-review';
+
 import CommentType from '../../../types/commentType';
 
 type ReviewItemProps = {
@@ -5,12 +7,6 @@ type ReviewItemProps = {
 }
 
 function ReviewItem({ reviewData }: ReviewItemProps) {
-  function buildDateReview() {
-    const date = new Date(reviewData.date);
-    const monthName = date.toLocaleString('eng', { month: 'long' });
-    return `${monthName} ${date.getFullYear()}`;
-  }
-
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -27,7 +23,7 @@ function ReviewItem({ reviewData }: ReviewItemProps) {
           </div>
         </div>
         <p className="reviews__text">{reviewData.comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{buildDateReview()}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{buildDateReview(reviewData.date)}</time>
       </div>
     </li>
   );

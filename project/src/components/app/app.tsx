@@ -1,23 +1,22 @@
+import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import useAppSelector from '../../hooks/use-app-selector';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+
+import { changeCitySpots } from '../../store/actions/city-actions/city-actions';
 
 import Header from '../header/header';
-
 import Main from '../../pages/main/main';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
-
 import PrivateRoute from '../private-route/private-route';
 
 import ROUTES_PATHS from './routes-paths';
 import PAGE_MODIFICATION from './page-modification';
 
-import OfferType from '../../types/offerType';
-
-type AppProps = {
-  arendaOfferData: OfferType[],
-};
+import offersMocks from '../../mocks/offers';
 
 const definePageContainerModificator = (path: string) => {
   switch(path) {
@@ -30,8 +29,18 @@ const definePageContainerModificator = (path: string) => {
   }
 };
 
-function App({ arendaOfferData }: AppProps): JSX.Element {
+function App(): JSX.Element {
   const { pathname } = useLocation();
+  const { city, citySpots } = useAppSelector((state) => state.cityData);
+  const dispatch = useAppDispatch();
+
+  // запрос спотов после изменения города
+
+  useEffect(() => {
+    dispatch(changeCitySpots(offersMocks));
+  }, [city]);
+
+  //
 
   const isAuthorized = true;
 
@@ -39,17 +48,17 @@ function App({ arendaOfferData }: AppProps): JSX.Element {
     <div className={`page ${definePageContainerModificator(pathname)}`}>
       <Header isAuthorized={isAuthorized} />
       <Routes>
-        <Route path={ROUTES_PATHS.MAIN} element={<Main arendaOfferData={arendaOfferData} />} />
+        <Route path={ROUTES_PATHS.MAIN} element={<Main citySpots={citySpots} />} />
         <Route path={ROUTES_PATHS.LOGIN} element={<Login />} />
         <Route
           path={ROUTES_PATHS.FAVORITES}
           element={(
             <PrivateRoute isAuthorized={isAuthorized}>
-              <Favorites favoritesCards={arendaOfferData} />
+              <Favorites favoritesCards={citySpots} />
             </PrivateRoute>
           )}
         />
-        <Route path={ROUTES_PATHS.ROOM} element={<Property arendaOfferData={arendaOfferData} />} />
+        <Route path={ROUTES_PATHS.ROOM} element={<Property citySpots={citySpots} />} />
         <Route path={ROUTES_PATHS.ANYTHING} element={<NotFound />} />
       </Routes>
     </div>
