@@ -21,6 +21,12 @@ function useMap(mapRef: React.MutableRefObject<HTMLDivElement | null>, citySetti
     }
   }, [mapRef, map, citySettings]);
 
+  useEffect(() => {
+    if (map) {
+      map.flyTo([citySettings.latitude, citySettings.longitude], citySettings.zoom);
+    }
+  }, [citySettings]);
+
   return map;
 }
 
