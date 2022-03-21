@@ -3,10 +3,12 @@ import axiosApi from '../api/create-axios';
 
 import { cityReducer } from './reducers/city-reducer/city-reducer';
 import { sortingReducer } from './reducers/sorting-reducer/sorting-reducer';
+import { authReducer } from './reducers/auth-reducer/auth-reducer';
 
 const reducer = {
   cityData: cityReducer,
   sortType: sortingReducer,
+  authStatus: authReducer,
 };
 
 const store = configureStore({

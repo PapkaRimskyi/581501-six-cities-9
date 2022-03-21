@@ -9,7 +9,7 @@ import Property from '../../pages/property/property';
 import NotFound from '../../pages/not-found/not-found';
 import PrivateRoute from '../private-route/private-route';
 
-import ROUTES_PATHS from './routes-paths';
+import ROUTES_PATHS from '../../const/routes-paths';
 import PAGE_MODIFICATION from './page-modification';
 
 const definePageContainerModificator = (path: string) => {
@@ -26,19 +26,18 @@ const definePageContainerModificator = (path: string) => {
 function App(): JSX.Element {
   const { pathname } = useLocation();
   const { citySpots } = useAppSelector((state) => state.cityData);
-
-  const isAuthorized = true;
+  const authorizationStatus = useAppSelector((state) => state.authStatus.status);
 
   return (
     <div className={`page ${definePageContainerModificator(pathname)}`}>
-      <Header isAuthorized={isAuthorized} />
+      <Header isAuthorized={authorizationStatus} />
       <Routes>
         <Route path={ROUTES_PATHS.MAIN} element={<Main citySpots={citySpots} />} />
         <Route path={ROUTES_PATHS.LOGIN} element={<Login />} />
         <Route
           path={ROUTES_PATHS.FAVORITES}
           element={(
-            <PrivateRoute isAuthorized={isAuthorized}>
+            <PrivateRoute isAuthorized={authorizationStatus}>
               <Favorites favoritesCards={citySpots} />
             </PrivateRoute>
           )}

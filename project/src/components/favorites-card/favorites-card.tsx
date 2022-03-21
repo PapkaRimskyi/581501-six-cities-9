@@ -2,7 +2,7 @@ import { generatePath, Link } from 'react-router-dom';
 
 import OfferType from '../../types/offerType';
 
-import ROUTES_PATHS from '../app/routes-paths';
+import ROUTES_PATHS from '../../const/routes-paths';
 
 type FavoritesCardProps = {
   cardInfo: OfferType,

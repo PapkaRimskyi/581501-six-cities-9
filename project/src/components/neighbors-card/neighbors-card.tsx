@@ -1,6 +1,6 @@
 import { generatePath, Link } from 'react-router-dom';
 
-import ROUTES_PATHS from '../app/routes-paths';
+import ROUTES_PATHS from '../../const/routes-paths';
 import OfferType from '../../types/offerType';
 
 type NeighborsCardProps = {

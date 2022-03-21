@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import HeaderNav from './header-nav/header-nav';
 
-import ROUTES_PATHS from '../app/routes-paths';
+import ROUTES_PATHS from '../../const/routes-paths';
 
 type HeaderProps = {
   isAuthorized: boolean,
@@ -20,7 +20,7 @@ function Header({ isAuthorized } : HeaderProps) {
               <img className="header__logo" src="./img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          {pathname !== ROUTES_PATHS.LOGIN && isAuthorized ? <HeaderNav /> : null}
+          {pathname !== ROUTES_PATHS.LOGIN ? <HeaderNav isAuthorized={isAuthorized} /> : null}
         </div>
       </div>
     </header>
