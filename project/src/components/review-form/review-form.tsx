@@ -3,7 +3,6 @@ import { ChangeEvent, useState } from 'react';
 import RatingStars from '../rating-stars/rating-stars';
 
 function ReviewForm() {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
   const [reviewStars, setReviewStars] = useState<string | null>(null);
   const [reviewText, setReviewText] = useState<string | number | readonly string[] | undefined>('');
 

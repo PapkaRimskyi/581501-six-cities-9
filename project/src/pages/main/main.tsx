@@ -9,9 +9,10 @@ import OfferType from '../../types/offerType';
 
 type MainProps = {
   citySpots: OfferType[],
+  sortType: string,
 };
 
-function Main({ citySpots }: MainProps): JSX.Element {
+function Main({ citySpots, sortType }: MainProps): JSX.Element {
   const [currentPoint, setCurrentPoint] = useState<null | number>(null);
 
   return (
@@ -25,7 +26,7 @@ function Main({ citySpots }: MainProps): JSX.Element {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{citySpots.length} places to stay in Amsterdam</b>
-            <Sorting />
+            <Sorting sortType={sortType} />
             <PlacesList
               mainClass='cities__places-list places__list tabs__content'
               pageFlag='main'
