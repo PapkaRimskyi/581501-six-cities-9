@@ -5,19 +5,19 @@ import useAppDispatch from '../../hooks/use-app-dispatch';
 import SORTING_LIST from '../../const/sorting-list';
 
 function Sorting({ sortType }: { sortType: string }) {
-  const [listState, setListState] = useState<boolean>(false);
+  const [isListOpen, setIsListOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   function listTypeClickHandler(e: React.MouseEvent) {
     e.preventDefault();
-    setListState((prevState) => !prevState);
+    setIsListOpen((prevState) => !prevState);
   }
 
   function optionClickHandler(e: React.MouseEvent) {
     e.preventDefault();
     const target = e.target as HTMLLIElement;
     const clickedSortingType = target.textContent as string;
-    setListState(false);
+    setIsListOpen(false);
     dispatch(changeSortingType(clickedSortingType));
   }
 
@@ -30,7 +30,7 @@ function Sorting({ sortType }: { sortType: string }) {
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={`places__options places__options--custom${listState ? ' places__options--opened': ''}`}>
+      <ul className={`places__options places__options--custom${isListOpen ? ' places__options--opened': ''}`}>
         {SORTING_LIST.map((sort) => (
           <li
             key={sort}
