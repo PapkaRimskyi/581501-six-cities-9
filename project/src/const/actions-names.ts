@@ -1,4 +1,5 @@
 export enum CITY_ACTIONS {
+  GET_DEFAULT_SPOTS = 'city/getDefaultSpots',
   CHANGE_CITY_NAME = 'city/changeCityName',
   CHANGE_CITY_SPOTS = 'city/changeCitySpots',
 }

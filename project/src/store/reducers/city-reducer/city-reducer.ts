@@ -2,11 +2,16 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import { changeCityName, changeCitySpots } from '../../actions/city-actions/city-actions';
 
-import offersMocks from '../../../mocks/offers';
+import OfferType from '../../../types/offerType';
 
-const initState = {
+type InitStateType = {
+  city: string,
+  citySpots: OfferType[],
+}
+
+const initState: InitStateType = {
   city: 'Paris',
-  citySpots: offersMocks,
+  citySpots: [],
 };
 
 export const cityReducer = createReducer(initState, (builder) => {

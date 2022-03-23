@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import axiosApi from '../api/create-axios';
 
 import { cityReducer } from './reducers/city-reducer/city-reducer';
 import { sortingReducer } from './reducers/sorting-reducer/sorting-reducer';
@@ -10,6 +11,11 @@ const reducer = {
 
 const store = configureStore({
   reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    thunk: {
+      extraArgument: axiosApi,
+    },
+  }),
   devTools: true,
 });
 
