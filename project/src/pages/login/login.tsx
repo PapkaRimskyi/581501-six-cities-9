@@ -4,15 +4,18 @@ import { Link } from 'react-router-dom';
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 
-import { sendAuthData } from '../../store/actions/auth-actions/auth-actions';
+import sendAuthRequest  from '../../store/auth/thunk/send-auth-request';
+
+import LoadingNotification from '../../components/notifications/loading-notification/loading-notification';
+import ErrorNotification from '../../components/notifications/error-notification/error-notification';
 
 import ROUTES_PATHS from '../../const/routes-paths';
-import ErrorNotification from "../../components/error-notification/error-notification";
 
 function Login() {
-  const { city }  = useAppSelector((state) => state.cityData);
-  const { pending, err } = useAppSelector((state) => state.authStatus);
+  const { cityName } = useAppSelector((state) => state.city);
+  const { pending, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
@@ -29,7 +32,7 @@ function Login() {
   function submitHandler(e: MouseEvent) {
     e.preventDefault();
     const userData = { password, email };
-    dispatch(sendAuthData(userData));
+    dispatch(sendAuthRequest(userData));
   }
 
   return (
@@ -46,18 +49,19 @@ function Login() {
               <label className="visually-hidden">Password</label>
               <input className="login__input form__input" onChange={passwordChangeHandler} type="password" name="password" placeholder="Password" required />
             </div>
-            <button className="login__submit form__submit button" type="submit" disabled={pending} onClick={submitHandler}>Sign in</button>
-            {err && <ErrorNotification errText={err} />}
+            <button className="login__submit form__submit button" type="submit" onClick={submitHandler}>Sign in</button>
+            <ErrorNotification errText={error.errText} code={error.code} />
           </form>
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
             <Link className="locations__item-link" to={ROUTES_PATHS.MAIN}>
-              <span>{city}</span>
+              <span>{cityName}</span>
             </Link>
           </div>
         </section>
       </div>
+      {pending && <LoadingNotification />}
     </main>
   );
 }

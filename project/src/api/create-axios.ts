@@ -1,9 +1,8 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 
-import handleReqErrors from '../util/handle-req-errors';
+import { getUserToken } from '../util/user-token';
 
-const BASE_URL = 'https://9.react.pages.academy/six-cities';
-const DEFAULT_TIMEOUT = 5000;
+import { BASE_URL, DEFAULT_TIMEOUT } from '../const/request-const';
 
 function createAxios(): AxiosInstance {
   const axiosInstance = axios.create({
@@ -11,13 +10,23 @@ function createAxios(): AxiosInstance {
     timeout: DEFAULT_TIMEOUT,
   });
 
-  axiosInstance.interceptors.response.use(function (config) {
-    return Promise.resolve(config);
-  }, function (error: AxiosError) {
-    const errorCode = error.response?.status;
-    // @ts-ignore
-    return Promise.reject(handleReqErrors(errorCode));
-  })
+  axiosInstance.interceptors.request.use((config) => {
+    const token = getUserToken();
+    if (token) {
+      config.headers['x-token'] = token;
+    }
+    return config;
+  });
+
+  axiosInstance.interceptors.response
+    .use(
+      (config) => Promise.resolve(config),
+      (error: AxiosError) => {
+        const status = error.response?.status;
+        const method = error.response?.config.method;
+        const rejectInformation = { status, method };
+        return Promise.reject(rejectInformation);
+      });
 
   return axiosInstance;
 }

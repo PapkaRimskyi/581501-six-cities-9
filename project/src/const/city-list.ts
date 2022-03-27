@@ -1,3 +1,10 @@
-const CITY_LIST = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export enum CITY_LIST_ENUM {
+  'PARIS' = 'Paris',
+  'COLOGNE' = 'Cologne',
+  'BRUSSELS' = 'Brussels',
+  'AMSTERDAM' = 'Amsterdam',
+  'HAMBURD' = 'Hamburg',
+  'DUSSELDORD' = 'Dusseldorf',
+}
 
-export default CITY_LIST;
+export const CITY_LIST = Object.values(CITY_LIST_ENUM);

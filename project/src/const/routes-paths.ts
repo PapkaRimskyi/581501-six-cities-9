@@ -4,6 +4,7 @@ enum ROUTES_PATHS {
   FAVORITES = '/favorites',
   ROOM = '/offer/:id',
   ANYTHING = '*',
+  NOT_FOUND = '/404',
 }
 
 export default ROUTES_PATHS;

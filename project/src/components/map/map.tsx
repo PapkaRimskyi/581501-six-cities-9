@@ -1,19 +1,21 @@
-import {useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 
 import leaflet from 'leaflet';
 
 import useMap from '../../hooks/use-map';
 
-import CoordType from '../../types/coordType';
-import OfferType from '../../types/offerType';
+import CoordType from '../../types/coord-type';
+import OfferType from '../../types/offer-type';
+
+import { MAP_CLASS } from './const';
 
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  mainClass: string,
+  mainClass: MAP_CLASS,
   citySettings: CoordType,
   points: OfferType[],
-  currentPoint: null | number,
+  currentPoint: null | string,
 }
 
 const defaultPin = leaflet.icon({
@@ -35,11 +37,16 @@ function Map({ mainClass, citySettings, points, currentPoint }: MapProps) {
 
   useEffect(() => {
     if (map) {
+      const markersCollection: leaflet.Marker[] = [];
       points.forEach((point) => {
-        const iconType = point.id === currentPoint ? currentPin : defaultPin;
+        const iconType = String(point.id) === currentPoint ? currentPin : defaultPin;
         const { latitude, longitude } = point.location;
-        leaflet.marker({ lat: latitude, lng: longitude }, { icon: iconType }).addTo(map);
+        const marker = leaflet.marker({ lat: latitude, lng: longitude }, { icon: iconType }).addTo(map);
+        markersCollection.push(marker);
       });
+      return () => {
+        markersCollection.forEach((marker) => marker.remove());
+      };
     }
   }, [map, points, currentPoint]);
 

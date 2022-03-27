@@ -1,47 +1,46 @@
-import React, { useState } from 'react';
-import { changeSortingType } from '../../store/actions/sorting-actions/sorting-actions';
+import { useState, MouseEvent } from 'react';
+
 import useAppDispatch from '../../hooks/use-app-dispatch';
 
-import SORTING_LIST from '../../const/sorting-list';
+import { changeSortType } from '../../store/sorting/sorting';
 
-function Sorting({ sortType }: { sortType: string }) {
-  const [isListOpen, setIsListOpen] = useState<boolean>(false);
+import SortingList from './sorting-list/sorting-list';
+
+import { SORTING_LIST_ENUM } from '../../const/sorting-list';
+
+type SortingProps = {
+  sortType: SORTING_LIST_ENUM,
+}
+
+function Sorting({ sortType }: SortingProps) {
   const dispatch = useAppDispatch();
 
-  function listTypeClickHandler(e: React.MouseEvent) {
+  const [isListOpen, setIsListOpen] = useState<boolean>(false);
+
+  function listTypeClickHandler(e: MouseEvent) {
     e.preventDefault();
     setIsListOpen((prevState) => !prevState);
   }
 
-  function optionClickHandler(e: React.MouseEvent) {
+  function optionClickHandler(e: MouseEvent) {
     e.preventDefault();
     const target = e.target as HTMLLIElement;
-    const clickedSortingType = target.textContent as string;
+    const clickedSortingType = target.textContent as SORTING_LIST_ENUM;
     setIsListOpen(false);
-    dispatch(changeSortingType(clickedSortingType));
+    dispatch(changeSortType(clickedSortingType));
   }
 
   return (
     <form className="places__sorting" action="#" method="get">
-      <span className="places__sorting-caption">Sort by</span>
+      <span className="places__sorting-caption">Sort by </span>
       <span className="places__sorting-type" tabIndex={0} onClick={listTypeClickHandler}>
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      <ul className={`places__options places__options--custom${isListOpen ? ' places__options--opened': ''}`}>
-        {SORTING_LIST.map((sort) => (
-          <li
-            key={sort}
-            className={`places__option${sortType === sort ? ' places__option--active' : ''}`}
-            tabIndex={0}
-            onClick={optionClickHandler}
-          >
-            {sort}
-          </li>
-        ))}
-      </ul>
+
+      <SortingList isListOpen={isListOpen} sortType={sortType} optionClickHandler={optionClickHandler} />
     </form>
   );
 }
