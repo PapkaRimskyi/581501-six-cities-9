@@ -50,7 +50,7 @@ function Login() {
               <input className="login__input form__input" onChange={passwordChangeHandler} type="password" name="password" placeholder="Password" required />
             </div>
             <button className="login__submit form__submit button" type="submit" onClick={submitHandler}>Sign in</button>
-            <ErrorNotification errText={error.errText} code={error.code} />
+            {error?.errText && <ErrorNotification errText={error.errText} />}
           </form>
         </section>
         <section className="locations locations--login locations--current">

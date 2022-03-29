@@ -2,16 +2,17 @@ import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import usePrevious from '../../hooks/use-previous';
 
+import sendRoomRequests from './request/request';
+
 import Gallery from '../../components/property/gallery/gallery';
 import Property from '../../components/property/property';
 import Map from '../../components/map/map';
 import NearPlaces from '../../components/property/near-places/near-places';
 import LoadingNotification from '../../components/notifications/loading-notification/loading-notification';
 
-import OfferType from '../../types/offer-type';
-import CommentType from '../../types/comment-type';
+import OfferType from '../../types/offer-type/offer-type';
+import CommentType from '../../types/offer-type/comment-type/comment-type';
 
-import sendRoomRequests from './request/request';
 import { MAP_CLASS } from '../../components/map/const';
 
 function Room() {
@@ -35,7 +36,7 @@ function Room() {
       const propertyID = param.id as string;
       sendRoomRequests(propertyID, settersCollection);
     }
-  }, [param]);
+  }, [param.id]);
 
   return (
     <div className="page">

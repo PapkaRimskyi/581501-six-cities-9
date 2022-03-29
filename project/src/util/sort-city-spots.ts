@@ -1,4 +1,4 @@
-import OfferType from '../types/offer-type';
+import OfferType from '../types/offer-type/offer-type';
 
 function sortFromCheapToExpensive(data: OfferType[]) {
   return [...data].sort((a, b) => {

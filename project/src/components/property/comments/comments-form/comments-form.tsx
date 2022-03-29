@@ -1,13 +1,14 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import React, {ChangeEvent, MouseEvent, useCallback, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 
 import sendCommentsRequest from './request/request';
 
 import RatingStars from './rating-stars/rating-stars';
+import TextArea from './text-area/text-area';
 import ErrorNotification from '../../../notifications/error-notification/error-notification';
 
-import CommentType from '../../../../types/comment-type';
-import { LoginErrorHandlerReturnType } from '../../../../errors/auth-errors/auth-errors';
+import CommentType from '../../../../types/offer-type/comment-type/comment-type';
+import ErrorHandlerType from '../../../../types/error-type/error-handler-type/error-handler-type';
 
 const MIN_LETTERS = 50;
 const MAX_LETTERS = 300;
@@ -19,22 +20,20 @@ type CommentsFormProps = {
 function CommentsForm({ setComments }: CommentsFormProps) {
   const [reviewStars, setReviewStars] = useState<string | null>(null);
   const [reviewText, setReviewText] = useState<string>('');
-  const [reqError, setReqError] = useState<LoginErrorHandlerReturnType>({ code: null, errText: '' });
+  const [reqError, setReqError] = useState<ErrorHandlerType | null>(null);
+
   const param = useParams();
 
-  function onChangeRatingHandler(e: ChangeEvent<HTMLInputElement>) {
-    setReviewStars(e.target.value);
-  }
+  const onChangeRatingHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => setReviewStars(e.target.value), []);
+  const onChangeTextHandler = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => setReviewText(e.target.value), []);
 
-  function onChangeTextHandler(e: ChangeEvent<HTMLTextAreaElement>) {
-    setReviewText(e.target.value);
-  }
+  useEffect(() => () => resetFormFields(), [param.id]);
 
   function sendFormHandler(e: MouseEvent) {
     e.preventDefault();
     const id = param.id as string;
     const formData = { rating: reviewStars, comment: reviewText };
-    sendCommentsRequest(id, formData, setComments, resetFormFields, setReqError);
+    sendCommentsRequest(id, formData, setComments, setReqError, resetFormFields);
   }
 
   function returnSubmitButtonStatus() {
@@ -52,7 +51,7 @@ function CommentsForm({ setComments }: CommentsFormProps) {
 
       <RatingStars reviewStars={reviewStars} onChangeRatingHandler={onChangeRatingHandler} />
 
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={onChangeTextHandler} value={reviewText} />
+      <TextArea reviewText={reviewText} onChangeTextHandler={onChangeTextHandler} />
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -61,7 +60,7 @@ function CommentsForm({ setComments }: CommentsFormProps) {
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={returnSubmitButtonStatus()} onClick={sendFormHandler}>Submit</button>
       </div>
-      <ErrorNotification errText={reqError.errText} code={reqError.code} />
+      {reqError && <ErrorNotification errText={reqError.errText} />}
     </form>
   );
 }

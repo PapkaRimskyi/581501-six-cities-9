@@ -23,9 +23,7 @@ function createAxios(): AxiosInstance {
       (config) => Promise.resolve(config),
       (error: AxiosError) => {
         const status = error.response?.status;
-        const method = error.response?.config.method;
-        const rejectInformation = { status, method };
-        return Promise.reject(rejectInformation);
+        return Promise.reject({ status });
       });
 
   return axiosInstance;

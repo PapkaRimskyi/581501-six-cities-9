@@ -1,6 +1,6 @@
 import { createSlice} from '@reduxjs/toolkit';
 
-import OfferType from '../../types/offer-type';
+import OfferType from '../../types/offer-type/offer-type';
 
 import { NAME_SPACES } from '../const/actions-names';
 

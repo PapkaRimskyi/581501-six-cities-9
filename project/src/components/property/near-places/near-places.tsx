@@ -1,6 +1,6 @@
 import PlacesList from '../../places-list/places-list';
 
-import OfferType from '../../../types/offer-type';
+import OfferType from '../../../types/offer-type/offer-type';
 
 import { PLACES_CLASS, PLACES_PAGE_FLAG } from '../../places-list/const';
 

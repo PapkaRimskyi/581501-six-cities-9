@@ -1,11 +1,11 @@
 import React from 'react';
 
+import useAppSelector from '../../../hooks/use-app-selector';
+
 import CommentsList from './comments-list/comments-list';
 import CommentsForm from './comments-form/comments-form';
 
-import useAppSelector from '../../../hooks/use-app-selector';
-
-import CommentType from '../../../types/comment-type';
+import CommentType from '../../../types/offer-type/comment-type/comment-type';
 
 import AUTH_STATUS from '../../../const/auth-status';
 

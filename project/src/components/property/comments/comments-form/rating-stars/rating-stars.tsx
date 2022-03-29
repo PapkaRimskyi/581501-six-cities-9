@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 
 type RatingStarsProps = {
   reviewStars: string | null,
@@ -86,4 +86,4 @@ function RatingStars({ reviewStars, onChangeRatingHandler }: RatingStarsProps) {
   );
 }
 
-export default RatingStars;
+export default React.memo(RatingStars);

@@ -1,4 +1,4 @@
-import OfferType from '../../../types/offer-type';
+import OfferType from '../../../types/offer-type/offer-type';
 
 type PriceProps = Pick<OfferType, 'price'>;
 

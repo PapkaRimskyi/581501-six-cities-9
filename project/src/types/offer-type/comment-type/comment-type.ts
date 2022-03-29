@@ -1,4 +1,4 @@
-import UserType from './user-type';
+import UserType from '../user-type/user-type';
 
 type CommentType = {
   comment: string,

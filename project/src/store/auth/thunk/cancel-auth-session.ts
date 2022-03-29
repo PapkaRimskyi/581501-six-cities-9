@@ -16,6 +16,7 @@ const cancelAuthSession = createAsyncThunk(AUTH_ACTIONS.CANCEL_AUTH_SESSION, asy
   try {
     await axios.delete(API_ENDPOINT.LOGOUT);
     deleteUserToken();
+
     dispatch(cancelUserSession());
     dispatch(clearFavoritesData());
   } catch (e) {

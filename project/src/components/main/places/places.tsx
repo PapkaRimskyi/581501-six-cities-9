@@ -6,7 +6,7 @@ import Sorting from '../../sorting/sorting';
 import PlacesList from '../../places-list/places-list';
 import Map from '../../map/map';
 
-import OfferType from '../../../types/offer-type';
+import OfferType from '../../../types/offer-type/offer-type';
 
 import { CITY_LIST_ENUM } from '../../../const/city-list';
 import { SORTING_LIST_ENUM } from '../../../const/sorting-list';
@@ -22,7 +22,6 @@ type PlacesProps = {
 
 function Places({ citySpots, currentCitySpots, cityName, sortType }: PlacesProps) {
   const [currentPoint, setCurrentPoint] = useState<null | string>(null);
-
   const hoverCardHandlers = useHoverCard(setCurrentPoint);
 
   return (

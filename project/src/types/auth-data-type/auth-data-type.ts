@@ -1,4 +1,4 @@
-import UserType from './user-type';
+import UserType from '../offer-type/user-type/user-type';
 
 type AuthDataType = UserType & {
   email: string,

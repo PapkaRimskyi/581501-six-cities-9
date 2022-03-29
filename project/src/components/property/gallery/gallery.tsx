@@ -1,8 +1,6 @@
-import ImageType from '../../../types/image-type';
+import OfferType from '../../../types/offer-type/offer-type';
 
-type GalleryProps = {
-  images: ImageType[],
-}
+type GalleryProps = Pick<OfferType, 'images'>;
 
 function Gallery({ images }: GalleryProps) {
   return (

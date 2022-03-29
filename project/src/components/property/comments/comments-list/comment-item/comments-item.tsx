@@ -1,6 +1,6 @@
 import buildDateReview from '../../../../../util/build-data-review';
 
-import CommentType from '../../../../../types/comment-type';
+import CommentType from '../../../../../types/offer-type/comment-type/comment-type';
 
 type CommentsItemProps = {
   comment: CommentType,

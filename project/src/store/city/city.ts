@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import getCitySpots from './thunk/get-city-spots';
 
-import OfferType from '../../types/offer-type';
-import ReqRejectType from '../../types/req-reject-type';
+import OfferType from '../../types/offer-type/offer-type';
 
 import { NAME_SPACES } from '../const/actions-names';
 import { CITY_LIST_ENUM } from '../../const/city-list';
+import ErrorHandlerType from '../../types/error-type/error-handler-type/error-handler-type';
 
 type InitStateType = {
   cityName: CITY_LIST_ENUM,
   citySpots: OfferType[],
   pending: boolean,
-  error: ReqRejectType | null,
+  error: ErrorHandlerType | null,
 }
 
 const initialState: InitStateType = {

@@ -1,11 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 
-import AuthDataType from '../../../types/auth-data-type';
+import { setPendingAuthStatus, setUserAuthData, setErrorAuthStatus } from '../auth';
+import getFavoritesRequest from '../../favorites/thunk/get-favorites-request';
+
+import AuthDataType from '../../../types/auth-data-type/auth-data-type';
 
 import { browserHistory } from '../../../components/app/history-router/history-router';
 
-import { loginErrorHandler, LoginErrorHandlerReturnType } from '../../../errors/auth-errors/auth-errors';
+import loginErrorHandler from '../../../errors/auth-errors/auth-errors';
 
 import { setUserToken } from '../../../util/user-token';
 
@@ -13,18 +16,18 @@ import { AUTH_ACTIONS } from '../../const/actions-names';
 import { API_ENDPOINT } from '../../../const/request-const';
 import ROUTES_PATHS from '../../../const/routes-paths';
 
-import ReqRejectType from '../../../types/req-reject-type';
+import ReqRejectType from '../../../types/error-type/req-reject-type/req-reject-type';
 
 type SendAuthDataType = {
   password: string,
   email: string,
 };
 
-type FulfilledDataType = Omit<AuthDataType, 'token'>;
-
-const sendAuthRequest = createAsyncThunk<FulfilledDataType, { email: string, password: string }, { rejectValue: LoginErrorHandlerReturnType }>(AUTH_ACTIONS.SEND_AUTH_REQUEST, async (userData: SendAuthDataType, thunkAPI) => {
-  const { rejectWithValue } = thunkAPI;
+const sendAuthRequest = createAsyncThunk(AUTH_ACTIONS.SEND_AUTH_REQUEST, async (userData: SendAuthDataType, thunkAPI) => {
+  const { dispatch } = thunkAPI;
   const axios = thunkAPI.extra as AxiosInstance;
+
+  dispatch(setPendingAuthStatus());
 
   try {
     const { data } = await axios.post<AuthDataType>(API_ENDPOINT.LOGIN, userData);
@@ -32,11 +35,13 @@ const sendAuthRequest = createAsyncThunk<FulfilledDataType, { email: string, pas
     delete data.token;
 
     setUserToken(token);
+    dispatch(setUserAuthData(data));
+    dispatch(getFavoritesRequest());
+
     browserHistory.push(ROUTES_PATHS.MAIN);
-    return data;
   } catch (e) {
     const error = loginErrorHandler(e as ReqRejectType);
-    return rejectWithValue(error);
+    dispatch(setErrorAuthStatus(error));
   }
 });
 

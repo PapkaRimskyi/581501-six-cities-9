@@ -1,10 +1,10 @@
 import { CITY_LIST_ENUM } from '../../../const/city-list';
 
-type NoPlacesType = {
+type NoPlacesProps = {
   cityName: CITY_LIST_ENUM,
 };
 
-function NoPlaces({ cityName }: NoPlacesType) {
+function NoPlaces({ cityName }: NoPlacesProps) {
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">

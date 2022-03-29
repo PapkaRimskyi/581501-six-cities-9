@@ -1,7 +1,7 @@
-import CoordType from './coord-type';
-import GoodType from './good-type';
-import UserType from './user-type';
-import ImageType from './image-type';
+import CoordType from './coord-type/coord-type';
+import GoodType from './good-type/good-type';
+import UserType from './user-type/user-type';
+import ImageType from './image-type/image-type';
 
 type OfferType = {
   bedrooms: number,

@@ -5,16 +5,16 @@ import { CITY_LIST_ENUM } from '../../../../const/city-list';
 type CitiesItemProps = {
   currentCity: CITY_LIST_ENUM,
   cityOption: CITY_LIST_ENUM,
-  locationClickHandler: (e: MouseEvent) => void,
+  cityClickHandler: (e: MouseEvent) => void,
 }
 
-function CitiesItem({ currentCity, cityOption, locationClickHandler }: CitiesItemProps) {
+function CitiesItem({ currentCity, cityOption, cityClickHandler }: CitiesItemProps) {
   return (
     <li className="locations__item">
       <a
         className={`locations__item-link tabs__item${cityOption === currentCity ? ' tabs__item--active' : ''}`}
         href=" "
-        onClick={locationClickHandler}
+        onClick={cityClickHandler}
       >
         <span>{cityOption}</span>
       </a>

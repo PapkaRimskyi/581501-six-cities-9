@@ -25,18 +25,16 @@ const definePageContainerModificator = (path: string) => {
   }
 };
 
-function App(): JSX.Element {
+function App() {
   const { pathname } = useLocation();
-  const { citySpots } = useAppSelector((state) => state.city);
-  const favoritesCards = useAppSelector((state) => state.favorites);
   const authorizationStatus = useAppSelector((state) => state.auth.authStatus);
 
   return (
     <div className={`page ${definePageContainerModificator(pathname)}`}>
-      <Header isAuthorized={authorizationStatus} />
+      <Header />
 
       <Routes>
-        <Route path={ROUTES_PATHS.MAIN} element={<Main citySpots={citySpots} />} />
+        <Route path={ROUTES_PATHS.MAIN} element={<Main />} />
         <Route
           path={ROUTES_PATHS.LOGIN}
           element={authorizationStatus !== AUTH_STATUS.AUTHORIZED ? <Login /> : <Navigate to={ROUTES_PATHS.MAIN} replace />}
@@ -48,7 +46,7 @@ function App(): JSX.Element {
               ? <LoadingNotification />
               : (
                 <PrivateRoute isAuthorized={authorizationStatus}>
-                  <Favorites favoritesCards={favoritesCards} />
+                  <Favorites />
                 </PrivateRoute>
               )
           }

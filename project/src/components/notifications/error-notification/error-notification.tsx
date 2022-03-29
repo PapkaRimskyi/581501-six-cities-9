@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { LoginErrorHandlerReturnType } from '../../../errors/auth-errors/auth-errors';
+import ErrorHandlerType from '../../../types/error-type/error-handler-type/error-handler-type';
 
 const TIME_OUT = 2000;
 
-function ErrorNotification({ errText, code }: LoginErrorHandlerReturnType) {
+function ErrorNotification({ errText }: ErrorHandlerType) {
   const [isErrVisible, setIsErrVisible] = useState(false);
 
   useEffect(() => {

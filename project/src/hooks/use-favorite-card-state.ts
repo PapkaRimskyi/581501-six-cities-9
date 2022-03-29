@@ -6,7 +6,7 @@ import useAppDispatch from './use-app-dispatch';
 
 import changeFavoritesStatus from '../store/favorites/thunk/change-favorites-status';
 
-import OfferType from '../types/offer-type';
+import OfferType from '../types/offer-type/offer-type';
 
 import AUTH_STATUS from '../const/auth-status';
 import ROUTES_PATHS from '../const/routes-paths';

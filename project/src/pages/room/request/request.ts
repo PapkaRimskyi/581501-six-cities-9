@@ -5,11 +5,11 @@ import { browserHistory } from '../../../components/app/history-router/history-r
 
 import sortCommentsByDate from '../../../util/sort-comments-by-date';
 
-import OfferType from '../../../types/offer-type';
-import CommentType from '../../../types/comment-type';
+import OfferType from '../../../types/offer-type/offer-type';
+import CommentType from '../../../types/offer-type/comment-type/comment-type';
 
 import ROUTES_PATHS from '../../../const/routes-paths';
-import { MAX_COMMENTS } from '../../../const/request-const';
+import { API_ENDPOINT, MAX_COMMENTS } from '../../../const/request-const';
 
 type StateSettersTypes = {
   setCurrentProperty:  React.Dispatch<React.SetStateAction<OfferType | null>>,
@@ -19,32 +19,31 @@ type StateSettersTypes = {
 }
 
 function sendRoomRequests(propertyID: string, { setCurrentProperty, setPropertyNearBy, setComments, setCurrentPoint }: StateSettersTypes) {
-  const hotelData = getDataRequest<OfferType>(`/hotels/${propertyID}`);
+  const hotelData = getDataRequest<OfferType>(`${API_ENDPOINT.HOTELS}/${propertyID}`);
 
   hotelData.then((hotelRes) => {
     setCurrentProperty(hotelRes.data);
     setCurrentPoint(propertyID);
 
-    const commentsData = getDataRequest<CommentType[]>(`/comments/${propertyID}`);
-    const hotelsNearBy = getDataRequest<OfferType[]>(`/hotels/${propertyID}/nearby`);
+    const commentsData = getDataRequest<CommentType[]>(`${API_ENDPOINT.COMMENTS}/${propertyID}`);
+    const hotelsNearBy = getDataRequest<OfferType[]>(`${API_ENDPOINT.HOTELS}/${propertyID}/nearby`);
 
     commentsData
       .then((commentsRes) => {
         const sortedComments = sortCommentsByDate(commentsRes.data);
         setComments(sortedComments.slice(0, MAX_COMMENTS));
       })
-      .catch((e) => {
+      .catch(() => {
         setComments([]);
-        throw new Error();
       });
 
     hotelsNearBy
       .then((hotelsNearRes) => setPropertyNearBy(hotelsNearRes.data))
-      .catch((e) => {
+      .catch(() => {
         setPropertyNearBy([]);
       });
 
-  }).catch((e) => {
+  }).catch(() => {
     browserHistory.push(ROUTES_PATHS.NOT_FOUND);
   });
 }

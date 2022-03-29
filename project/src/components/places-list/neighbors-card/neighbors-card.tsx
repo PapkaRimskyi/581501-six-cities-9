@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import useFavoriteCardState from '../../../hooks/use-favorite-card-state';
 
-import OfferType from '../../../types/offer-type';
+import OfferType from '../../../types/offer-type/offer-type';
 
 type NeighborsCardProps = {
   cardInfo: OfferType,

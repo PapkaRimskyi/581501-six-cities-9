@@ -4,7 +4,7 @@ import PlaceCard from './place-card/place-card';
 import NeighborsCard from './neighbors-card/neighbors-card';
 import FavoritesCard from './favorites-card/favorites-card';
 
-import OfferType from '../../types/offer-type';
+import OfferType from '../../types/offer-type/offer-type';
 
 import { PLACES_CLASS, PLACES_PAGE_FLAG } from './const';
 import ROUTES_PATHS from '../../const/routes-paths';

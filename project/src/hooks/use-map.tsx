@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import leaflet from 'leaflet';
 
-import CoordType from '../types/coord-type';
+import CoordType from '../types/offer-type/coord-type/coord-type';
 
 const URL_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 

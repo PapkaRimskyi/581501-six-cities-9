@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import leaflet from 'leaflet';
 
 import useMap from '../../hooks/use-map';
 
-import CoordType from '../../types/coord-type';
-import OfferType from '../../types/offer-type';
+import CoordType from '../../types/offer-type/coord-type/coord-type';
+import OfferType from '../../types/offer-type/offer-type';
 
 import { MAP_CLASS } from './const';
 

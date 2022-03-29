@@ -8,8 +8,8 @@ import Goods from './goods/goods';
 import Host from './host/host';
 import Comments from './comments/comments';
 
-import OfferType from '../../types/offer-type';
-import CommentType from '../../types/comment-type';
+import OfferType from '../../types/offer-type/offer-type';
+import CommentType from '../../types/offer-type/comment-type/comment-type';
 
 type PropertyProps = {
   currentProperty: OfferType,

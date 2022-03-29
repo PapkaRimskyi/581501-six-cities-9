@@ -1,15 +1,15 @@
-import ReqRejectType from '../../types/req-reject-type';
+import ReqRejectType from '../../types/error-type/req-reject-type/req-reject-type';
 
 import { ERRORS_CODE } from '../../const/request-const';
 
-function commentsErrorHandler({ status, method }: ReqRejectType) {
+function commentsErrorHandler({ status }: ReqRejectType) {
   switch (status) {
     case ERRORS_CODE['403']:
-      return { code: status, errText: 'You cannot send comments.' };
+      return { errText: 'You cannot send comments.' };
     case ERRORS_CODE['408']:
-      return { code: status, errText: 'Send request interrupted cause timeout. Try again.' };
+      return { errText: 'Send request interrupted cause timeout. Try again.' };
     default:
-      return { code: null, errText: 'Something went wrong!' };
+      return { errText: 'Something went wrong!' };
   }
 }
 

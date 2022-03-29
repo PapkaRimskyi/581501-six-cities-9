@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CITY_LIST_ENUM } from '../../../../const/city-list';
+import { CITY_LIST_ENUM } from '../../../../../../const/city-list';
 
 type CityCategoryProps = {
   city: CITY_LIST_ENUM,
