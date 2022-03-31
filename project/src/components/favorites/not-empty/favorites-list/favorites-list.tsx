@@ -17,7 +17,7 @@ function FavoritesList({ favoritesCards }: FavoritesListProps ) {
 
   return (
     <ul className="favorites__list">
-      {citiesWithFavoritesCard.map((city) => <FavoritesItems key={city} city={city} getFavoritesPlacesByCity={getFavoritesPlacesByCity} />)}
+      {citiesWithFavoritesCard.map((city) => <FavoritesItems key={city} city={city} citySpots={getFavoritesPlacesByCity(city)} />)}
     </ul>
   );
 }

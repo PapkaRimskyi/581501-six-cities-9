@@ -8,10 +8,10 @@ import { CITY_LIST_ENUM } from '../../../../../const/city-list';
 
 type FavoritesItemsProps = {
   city: CITY_LIST_ENUM,
-  getFavoritesPlacesByCity: (city: CITY_LIST_ENUM) => OfferType[],
+  citySpots: OfferType[],
 }
 
-function FavoritesItems({ city, getFavoritesPlacesByCity }: FavoritesItemsProps) {
+function FavoritesItems({ city, citySpots }: FavoritesItemsProps) {
   return (
     <li className="favorites__locations-items">
       <CityCategory city={city} />
@@ -19,7 +19,7 @@ function FavoritesItems({ city, getFavoritesPlacesByCity }: FavoritesItemsProps)
       <PlacesList
         mainClass={PLACES_CLASS.FAVORITES_PLACES_LIST}
         pageFlag={PLACES_PAGE_FLAG.FAVORITES}
-        citySpots={getFavoritesPlacesByCity(city)}
+        citySpots={citySpots}
       />
     </li>
   );
