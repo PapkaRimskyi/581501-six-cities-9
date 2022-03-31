@@ -12,7 +12,6 @@ export const ERRORS_CODE = {
 
 export enum API_ENDPOINT {
   HOTELS = '/hotels',
-  PROPERTY = '/hotels/:id',
   COMMENTS = '/comments',
   LOGIN = '/login',
   LOGOUT = '/logout',

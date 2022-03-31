@@ -14,7 +14,6 @@ import ROUTES_PATHS from '../../const/routes-paths';
 import { CITY_LIST } from '../../const/city-list';
 
 function Login() {
-  const { cityName } = useAppSelector((state) => state.city);
   const { pending, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
 

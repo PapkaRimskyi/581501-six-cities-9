@@ -26,16 +26,20 @@ function Room() {
   const param = useParams();
   const prevParam = usePrevious(param.id);
 
+  // Ругалось на settersCollection и param.id. Здесь при первичном монтировании я делаю запрос для комнаты. Поэтому игнорирую их.
   useEffect(() => {
     const propertyID = param.id as string;
     sendRoomRequests(propertyID, settersCollection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Ругалось на settersCollection и prevParam. Внутри я сравниваю предыдущий id комнаты и текущий. И делаю запрос.
   useEffect(() => {
     if (prevParam && prevParam !== param.id) {
       const propertyID = param.id as string;
       sendRoomRequests(propertyID, settersCollection);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param.id]);
 
   return (

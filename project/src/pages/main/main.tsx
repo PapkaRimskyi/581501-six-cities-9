@@ -26,19 +26,23 @@ function Main(): JSX.Element {
   const [currentCitySpots, setCurrentCitySpots] = useState<OfferType[]>([]);
   const prevCity = usePrevious(cityName);
 
+  // ругалось на зависимость sortType. Решил разделить логику. Во втором useEffect'е обрабатывается логика при смене sortType
   useEffect(() => {
     if (citySpots.length) {
       const filteredCityByCityName = getSpotsByCity(citySpots, cityName);
       const sortedCitySpots = sortCitySpots(sortType, filteredCityByCityName);
       setCurrentCitySpots(sortedCitySpots);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [citySpots, cityName]);
 
+  // ругалось на currentCitySpots и prevCity. проверка на prevCity позволяет избежать запуска ненужного функционала. Тк по дефолту мне ничего сортировать не надо. Как пришли данные, так и отдал.
   useEffect(() => {
     if (prevCity) {
       const sortedCitySpots = sortCitySpots(sortType, currentCitySpots);
       setCurrentCitySpots(sortedCitySpots);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType]);
 
   return (
