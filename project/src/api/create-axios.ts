@@ -1,13 +1,32 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 
-const BASE_URL = 'https://9.react.pages.academy/six-cities';
-const DEFAULT_TIMEOUT = 5000;
+import { getUserToken } from '../util/user-token';
+
+import { BASE_URL, DEFAULT_TIMEOUT } from '../const/request-const';
 
 function createAxios(): AxiosInstance {
-  return axios.create({
+  const axiosInstance = axios.create({
     baseURL: BASE_URL,
     timeout: DEFAULT_TIMEOUT,
   });
+
+  axiosInstance.interceptors.request.use((config) => {
+    const token = getUserToken();
+    if (token) {
+      config.headers['x-token'] = token;
+    }
+    return config;
+  });
+
+  axiosInstance.interceptors.response
+    .use(
+      (config) => Promise.resolve(config),
+      (error: AxiosError) => {
+        const status = error.response?.status;
+        return Promise.reject({ status });
+      });
+
+  return axiosInstance;
 }
 
 export default createAxios();

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import leaflet from 'leaflet';
 
-import CoordType from '../types/coordType';
+import CoordType from '../types/offer-type/coord-type/coord-type';
 
 const URL_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
@@ -11,7 +11,7 @@ function useMap(mapRef: React.MutableRefObject<HTMLDivElement | null>, citySetti
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-      const instance = leaflet.map(mapRef.current, { center: [citySettings.latitude, citySettings.longitude] , zoom: citySettings.zoom });
+      const instance = leaflet.map(mapRef.current, { center: [citySettings?.latitude, citySettings?.longitude] , zoom: citySettings?.zoom });
       leaflet
         .tileLayer(
           URL_LAYER,
@@ -23,9 +23,9 @@ function useMap(mapRef: React.MutableRefObject<HTMLDivElement | null>, citySetti
 
   useEffect(() => {
     if (map) {
-      map.flyTo([citySettings.latitude, citySettings.longitude], citySettings.zoom);
+      map.setView([citySettings?.latitude, citySettings?.longitude], citySettings?.zoom);
     }
-  }, [citySettings]);
+  }, [citySettings, map]);
 
   return map;
 }

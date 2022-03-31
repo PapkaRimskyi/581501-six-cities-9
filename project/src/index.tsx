@@ -1,22 +1,26 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HistoryRouter, browserHistory } from './components/app/history-router/history-router';
 
-import { getDefaultSpotsAction } from './store/actions/city-actions/city-actions';
+import getCitySpots from './store/city/thunk/get-city-spots';
+import checkAuthStatus from './store/auth/thunk/check-auth-status';
 
 import App from './components/app/app';
+import ScrollToTop from './components/scroll-to-top/scroll-to-top';
 
 import store from './store/store';
 
-store.dispatch(getDefaultSpotsAction());
+store.dispatch(getCitySpots());
+store.dispatch(checkAuthStatus());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
+      <HistoryRouter history={browserHistory}>
         <App />
-      </Router>
+        <ScrollToTop />
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

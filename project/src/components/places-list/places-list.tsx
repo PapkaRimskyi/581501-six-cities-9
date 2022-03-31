@@ -1,27 +1,38 @@
-import { Dispatch, SetStateAction } from 'react';
-import useHoverCard from '../../hooks/use-hover-card';
+import { generatePath } from 'react-router-dom';
 
 import PlaceCard from './place-card/place-card';
-import NeighborsCard from '../neighbors-card/neighbors-card';
+import NeighborsCard from './neighbors-card/neighbors-card';
+import FavoritesCard from './favorites-card/favorites-card';
 
-import OfferType from '../../types/offerType';
+import OfferType from '../../types/offer-type/offer-type';
+
+import { PLACES_CLASS, PLACES_PAGE_FLAG } from './const';
+import ROUTES_PATHS from '../../const/routes-paths';
 
 type PlacesListProps = {
-  mainClass: string,
-  pageFlag: 'main' | 'offer',
+  mainClass: PLACES_CLASS,
+  pageFlag: PLACES_PAGE_FLAG,
   citySpots: OfferType[],
-  setCurrentPoint: Dispatch<SetStateAction<number | null>>,
+  hoverCardHandlers?: {
+    onMouseEnterHandler: (id: string) => void,
+    onMouseLeaveHandler: () => void,
+  }
 }
 
-function PlacesList({ mainClass, pageFlag, citySpots, setCurrentPoint }: PlacesListProps) {
-  const { onMouseEnterHandler, onMouseLeaveHandler } = useHoverCard(setCurrentPoint);
+function getCardLinkPath(id: string) {
+  return generatePath(ROUTES_PATHS.ROOM, { id });
+}
+
+function PlacesList({ mainClass, pageFlag, citySpots, hoverCardHandlers }: PlacesListProps) {
 
   function getCard(cardInfo: OfferType) {
     switch(pageFlag) {
-      case 'main':
-        return <PlaceCard key={cardInfo.id} cardInfo={cardInfo} onMouseEnterHandler={() => onMouseEnterHandler(cardInfo.id)} onMouseLeaveHandler={onMouseLeaveHandler} />;
-      case 'offer':
-        return <NeighborsCard key={cardInfo.id} cardInfo={cardInfo} onMouseEnterHandler={() => onMouseEnterHandler(cardInfo.id)} onMouseLeaveHandler={onMouseLeaveHandler} />;
+      case PLACES_PAGE_FLAG.MAIN:
+        return <PlaceCard key={cardInfo.id} cardInfo={cardInfo} linkHref={getCardLinkPath(String(cardInfo.id))} onMouseEnterHandler={() => hoverCardHandlers?.onMouseEnterHandler(String(cardInfo.id))} onMouseLeaveHandler={() => hoverCardHandlers?.onMouseLeaveHandler()} />;
+      case PLACES_PAGE_FLAG.OFFER:
+        return <NeighborsCard key={cardInfo.id} cardInfo={cardInfo} linkHref={getCardLinkPath(String(cardInfo.id))} />;
+      case PLACES_PAGE_FLAG.FAVORITES:
+        return <FavoritesCard key={cardInfo.id} cardInfo={cardInfo} linkHref={getCardLinkPath(String(cardInfo.id))} />;
       default:
         return null;
     }
