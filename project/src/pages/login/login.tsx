@@ -1,15 +1,17 @@
-import { useState, MouseEvent, ChangeEvent } from 'react';
+import {useState, MouseEvent, ChangeEvent, useMemo} from 'react';
 import { Link } from 'react-router-dom';
 
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 
 import sendAuthRequest  from '../../store/auth/thunk/send-auth-request';
+import { changeCityName } from '../../store/city/city';
 
 import LoadingNotification from '../../components/notifications/loading-notification/loading-notification';
 import ErrorNotification from '../../components/notifications/error-notification/error-notification';
 
 import ROUTES_PATHS from '../../const/routes-paths';
+import { CITY_LIST } from '../../const/city-list';
 
 function Login() {
   const { cityName } = useAppSelector((state) => state.city);
@@ -18,6 +20,11 @@ function Login() {
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
+  const randomCity = useMemo(() => {
+    const randomCityIndex = Math.floor(Math.random() * CITY_LIST.length);
+    return CITY_LIST[randomCityIndex];
+  },[]);
 
   function emailChangeHandler(e: ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -33,6 +40,10 @@ function Login() {
     e.preventDefault();
     const userData = { password, email };
     dispatch(sendAuthRequest(userData));
+  }
+
+  function randomCityClickHandler() {
+    dispatch(changeCityName(randomCity));
   }
 
   return (
@@ -55,8 +66,8 @@ function Login() {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link className="locations__item-link" to={ROUTES_PATHS.MAIN}>
-              <span>{cityName}</span>
+            <Link className="locations__item-link" to={ROUTES_PATHS.MAIN} onClick={randomCityClickHandler}>
+              <span>{randomCity}</span>
             </Link>
           </div>
         </section>
