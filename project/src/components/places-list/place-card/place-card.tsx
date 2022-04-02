@@ -41,7 +41,7 @@ function PlaceCard({ cardInfo, linkHref, onMouseEnterHandler, onMouseLeaveHandle
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${20 * cardInfo.rating}%` }}></span>
+            <span style={{ width: `${20 * Math.round(cardInfo.rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
