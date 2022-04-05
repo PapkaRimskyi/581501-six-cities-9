@@ -17,6 +17,7 @@ import { API_ENDPOINT } from '../../../const/request-const';
 import ROUTES_PATHS from '../../../const/routes-paths';
 
 import ReqRejectType from '../../../types/error-type/req-reject-type/req-reject-type';
+import validateLoginForm from "../../../util/validate-login-form";
 
 type SendAuthDataType = {
   password: string,
@@ -29,19 +30,25 @@ const sendAuthRequest = createAsyncThunk(AUTH_ACTIONS.SEND_AUTH_REQUEST, async (
 
   dispatch(setPendingAuthStatus());
 
-  try {
-    const { data } = await axios.post<AuthDataType>(API_ENDPOINT.LOGIN, userData);
-    const token = data.token || '';
-    delete data.token;
+  const isPasswordValid = validateLoginForm(userData.password);
 
-    setUserToken(token);
-    dispatch(setUserAuthData(data));
-    dispatch(getFavoritesRequest());
+  if (isPasswordValid) {
+    try {
+      const { data } = await axios.post<AuthDataType>(API_ENDPOINT.LOGIN, userData);
+      const token = data.token || '';
+      delete data.token;
 
-    browserHistory.push(ROUTES_PATHS.MAIN);
-  } catch (e) {
-    const error = loginErrorHandler(e as ReqRejectType);
-    dispatch(setErrorAuthStatus(error));
+      setUserToken(token);
+      dispatch(setUserAuthData(data));
+      dispatch(getFavoritesRequest());
+
+      browserHistory.push(ROUTES_PATHS.MAIN);
+    } catch (e) {
+      const error = loginErrorHandler(e as ReqRejectType);
+      dispatch(setErrorAuthStatus(error));
+    }
+  } else {
+    dispatch(setErrorAuthStatus({ errText: 'Password should contains at least 1 number and 1 letter' }))
   }
 });
 

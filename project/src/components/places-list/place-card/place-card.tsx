@@ -4,6 +4,8 @@ import useFavoriteCardState from '../../../hooks/use-favorite-card-state';
 
 import OfferType from '../../../types/offer-type/offer-type';
 
+import { MIN_RATING } from '../../../const/common-const';
+
 type PlaceCardProps = {
   cardInfo: OfferType,
   linkHref: string,
@@ -41,7 +43,7 @@ function PlaceCard({ cardInfo, linkHref, onMouseEnterHandler, onMouseLeaveHandle
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${20 * Math.round(cardInfo.rating)}%` }}></span>
+            <span style={{ width: `${MIN_RATING * Math.round(cardInfo.rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

@@ -1,10 +1,10 @@
-import {useState, MouseEvent, ChangeEvent, useMemo} from 'react';
+import { useState, MouseEvent, ChangeEvent, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
 
-import sendAuthRequest  from '../../store/auth/thunk/send-auth-request';
+import sendAuthRequest from '../../store/auth/thunk/send-auth-request';
 import { changeCityName } from '../../store/city/city';
 
 import LoadingNotification from '../../components/notifications/loading-notification/loading-notification';
@@ -16,6 +16,7 @@ import { CITY_LIST } from '../../const/city-list';
 function Login() {
   const { pending, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+  console.log(error);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -60,7 +61,7 @@ function Login() {
               <input className="login__input form__input" onChange={passwordChangeHandler} type="password" name="password" placeholder="Password" required />
             </div>
             <button className="login__submit form__submit button" type="submit" onClick={submitHandler}>Sign in</button>
-            {error?.errText && <ErrorNotification errText={error.errText} />}
+            {error?.errText && <ErrorNotification error={error} />}
           </form>
         </section>
         <section className="locations locations--login locations--current">

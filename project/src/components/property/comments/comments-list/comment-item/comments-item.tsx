@@ -2,6 +2,8 @@ import buildDateReview from '../../../../../util/build-data-review';
 
 import CommentType from '../../../../../types/offer-type/comment-type/comment-type';
 
+import { MIN_RATING } from '../../../../../const/common-const';
+
 type CommentsItemProps = {
   comment: CommentType,
 }
@@ -18,7 +20,7 @@ function CommentsItem({ comment }: CommentsItemProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${comment.rating * 20}%` }}></span>
+            <span style={{ width: `${comment.rating * MIN_RATING}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

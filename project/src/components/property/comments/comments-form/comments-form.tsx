@@ -60,7 +60,7 @@ function CommentsForm({ setComments }: CommentsFormProps) {
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={returnSubmitButtonStatus()} onClick={sendFormHandler}>Submit</button>
       </div>
-      {reqError && <ErrorNotification errText={reqError.errText} />}
+      {reqError?.errText && <ErrorNotification error={reqError} />}
     </form>
   );
 }
