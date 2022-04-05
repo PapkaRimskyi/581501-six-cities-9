@@ -16,8 +16,9 @@ import { AUTH_ACTIONS } from '../../const/actions-names';
 import { API_ENDPOINT } from '../../../const/request-const';
 import ROUTES_PATHS from '../../../const/routes-paths';
 
+import validateLoginForm from '../../../util/validate-login-form';
+
 import ReqRejectType from '../../../types/error-type/req-reject-type/req-reject-type';
-import validateLoginForm from "../../../util/validate-login-form";
 
 type SendAuthDataType = {
   password: string,
@@ -48,7 +49,7 @@ const sendAuthRequest = createAsyncThunk(AUTH_ACTIONS.SEND_AUTH_REQUEST, async (
       dispatch(setErrorAuthStatus(error));
     }
   } else {
-    dispatch(setErrorAuthStatus({ errText: 'Password should contains at least 1 number and 1 letter' }))
+    dispatch(setErrorAuthStatus({ errText: 'Password should contains at least 1 number and 1 letter' }));
   }
 });
 

@@ -12,7 +12,6 @@ function ErrorNotification({ error }: ErrorNotificationType) {
   const [isErrVisible, setIsErrVisible] = useState(false);
 
   useEffect(() => {
-    console.log(error);
     if (error.errText) {
       setIsErrVisible(true);
       const timerID = setTimeout(() => {

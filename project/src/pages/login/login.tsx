@@ -16,7 +16,6 @@ import { CITY_LIST } from '../../const/city-list';
 function Login() {
   const { pending, error } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
-  console.log(error);
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
